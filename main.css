@@ -96,8 +96,8 @@ h3 {
 header {
     background:
         linear-gradient(
-        rgba(79,172,254,1.0),
-        rgba(0,242,254,1.0)    
+        #333333,
+        #333333    
         ),
         /* bottom image */
         
@@ -144,7 +144,7 @@ header {
 }
 
 .about {
-    padding: 4% 0;
+    padding: 5% 0 0 0;
     
 }
 
@@ -155,9 +155,9 @@ header {
     line-height: 1.8;
     color: black;
     letter-spacing: .03em;
-    margin: 10px auto;
+    margin: 0px auto;
     font-size: 1.5em;
-    padding:2% 0;
+    padding:0% 0 2.65%;
     
 }
 
@@ -165,18 +165,15 @@ header {
     color: crimson;
     border-bottom: 2px solid;
     
-    
 }
 
 .work {
     height: 300px;
     padding: 2% 0;
-    
 }
 
 .work h3 {
     padding: 4% 0;
-    
 }
 
 .text-box {
@@ -425,4 +422,5 @@ footer {
     
     
     
+}.new-section {
 }
