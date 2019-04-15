@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../main.css">
+    <title>Visual Design</title>
+</head>
+
+<body>
+    <div id="navigation">
+        <ul>
+            <li>
+                <a href="../index.html">HOME</a>
+            </li>
+            <li>
+                <a href="ux.html">UX DESIGN</a>
+            </li>
+            <li>
+                <a href="visual_design.html">VISUAL DESIGN</a>
+            </li>
+            <li>
+                <a href="resume.html">RESUME</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div id="main">
+        <div style="margin-top: 15px;">
+            <div id="vdc" class="carousel slide" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="vdc" data-slide-to="0" class="active"></li>
+                    <li data-target="vdc" data-slide-to="1"></li>
+                    <li data-target="vdc" data-slide-to="2"></li>
+                    <li data-target="vdc" data-slide-to="3"></li>
+                </ul>
+
+                <!-- Slideshow -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://source.unsplash.com/oy_Kwca00EA/2048x871" alt="Placeholder Text">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://source.unsplash.com/XHDtPRj535A/2048x871" alt="Placehold Text">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://source.unsplash.com/KT3WlrL_bsg/2048x871" alt="Placeholder Text">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://source.unsplash.com/4xv3lqnanYc/2048x871" alt="Placeholder Text">
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#vdc" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+                <a class="carousel-control-next" href="#vdc" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <p>&copy; 2018 Samuel Aguilar. All Rights Reserved</p>
+
+    </div>
+
+</body>
+
+<!-- Keeps Navigation Consistent-->
+<style>
+    #navigation {
+        margin-top: -1px;
+    }
+
+</style>
+
+<script>
+    AOS.init();
+
+</script>
+
+<script>
+    window.onscroll = function() {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("navigation");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+</script>
+
+</html>

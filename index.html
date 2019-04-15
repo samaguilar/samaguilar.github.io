@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>Samuel Aguilar</title>
+</head>
+
+<body>
+
+    <div class="logo">
+        <h1>Samuel Aguilar</h1>
+        <p>UI &amp; UX Design </p>
+    </div>
+
+    <div id="navigation">
+        <ul>
+            <li>
+                <a href="index.html">HOME</a>
+            </li>
+            <li>
+                <a href="./views/ux.html">UX DESIGN</a>
+            </li>
+            <li>
+                <a href="./views/visual_design.html">VISUAL DESIGN</a>
+            </li>
+            <li>
+                <a href="./views/resume.html">RESUME</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div id="main">
+
+
+        <div class="banner" data-aos="fade-up">
+            <!--    <p>SAMPLE TEXT</p> -->
+            <a href="#">
+                <img src="./img/critical_review_banner.png"></a>
+        </div>
+
+        <div class="banner" data-aos="fade-up">
+            <!--    <p>SAMPLE TEXT</p> -->
+            <a href="#">
+                <img src="./img/hr_banner.jpg">
+                    </a>
+        </div>
+
+        <div class="banner" data-aos="fade-up">
+            <!--    <p>SAMPLE TEXT</p> -->
+            <a href="#">
+                <img src="./img/ubica_banner.jpg">
+                     </a>
+        </div>
+
+
+    </div>
+
+    <div id="footer">
+        <p>&copy; 2019 Samuel Aguilar. All Rights Reserved</p>
+
+    </div>
+
+</body>
+
+<script>
+    AOS.init();
+
+</script>
+
+<script>
+    window.onscroll = function() {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("navigation");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+</script>
+
+</html>
