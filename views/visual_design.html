@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="../main.css">
+    <link type="text/css" rel="stylesheet" href="./styles/visual.css">
     <title>Visual Design</title>
 </head>
 
@@ -26,14 +26,39 @@
                 <a href="visual_design.html">VISUAL DESIGN</a>
             </li>
             <li>
-                <a href="resume.html">RESUME</a>
+                <a href="resume.html">ABOUT</a>
             </li>
 
         </ul>
     </div>
 
-    <div id="main">
-        <div style="margin-top: 15px;">
+    <div class="main">
+        <div class="project" data-aos="fade-up">
+            <img src="img/mlstudio_cover.jpg">
+            <div class="description">
+                <h1>MLStudio</h1>
+                <p><strong>Design &amp; Development</strong></p>
+                <p>A music player. An audio editor. You get the picture. Create unique music visualizations; all inside of MATLAB. </p>
+                <button onclick="location.href='./projects/mlstudio.html';">
+                View Case Study
+                </button>
+            </div>
+        </div>
+
+        <div class="project" data-aos="fade-up">
+            <img src="img/info_cover.jpg">
+            <div class="description">
+                <h1>Infographics</h1>
+                <p><strong>Designer</strong></p>
+                <p>Assorted infographics for my Data Visualization &amp; Animal Behavior courses.</p>
+                <button onclick="location.href='./projects/infographics.html';">
+                View Work
+                </button>
+            </div>
+        </div>
+
+
+        <div style="margin-top: 15px; display: none;">
             <div id="vdc" class="carousel slide" data-ride="carousel">
 
                 <!-- Indicators -->

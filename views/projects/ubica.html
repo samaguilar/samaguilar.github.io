@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="styles/ubica.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <title>UX</title>
+</head>
+
+<body>
+
+    <div id="navigation">
+        <ul>
+            <li>
+                <a href="../../index.html">HOME</a>
+            </li>
+            <li>
+                <a href="../ux.html">UX DESIGN</a>
+            </li>
+            <li>
+                <a href="../visual_design.html">VISUAL DESIGN</a>
+            </li>
+            <li>
+                <a href="../resume.html">ABOUT</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <div class="main-header">
+            <h1>Ubica</h1>
+            <strong>Co-Founder &amp; Design</strong>
+            <p>June 2018 - Present</p>
+        </div>
+
+
+        <div class="body">
+            <div class="paragraph">
+                <h1>The Problem</h1>
+                <p>Organizations are unable to easily create and manage a series of events. Coordinating a multi-event series requires the use of multiple applications. Ubica is an integrated solution that offers an improved experience for both event-goers and managers.</p>
+            </div>
+
+            <div class="paragraph"></div>
+            <h1>The Design</h1>
+            <p></p>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="footer">
+        <p>&copy; 2018 Samuel Aguilar. All Rights Reserved</p>
+
+    </div>
+
+</body>
+
+<script>
+    AOS.init();
+
+</script>
+
+<script>
+    window.onscroll = function() {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("navigation");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+</script>
+
+</html>
