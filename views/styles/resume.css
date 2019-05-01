@@ -61,7 +61,7 @@ body {
 }
 
 .main {
-    max-width: 100%;
+    max-width: 90%;
     margin: 0 auto;
     animation: fadein 2s;
     display: flex;
