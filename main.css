@@ -106,7 +106,6 @@ body {
     margin-bottom: 50px;
     transition: 0.3s ease all !important;
     clip: 10px;
-    background-color: orange;
     align-items: center;
     justify-content: center;
 }

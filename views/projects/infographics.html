@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="styles/info.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../device-mockups/dist/device-mockups.min.css">
+    <title>Infographics</title>
+</head>
+
+<body>
+
+    <div id="navigation">
+        <ul>
+            <li>
+                <a href="../../index.html">HOME</a>
+            </li>
+            <li>
+                <a href="../ux.html">UX DESIGN</a>
+            </li>
+            <li>
+                <a href="../visual_design.html">VISUAL DESIGN</a>
+            </li>
+            <li>
+                <a href="../resume.html">ABOUT</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <div class="main-header">
+            <h1>Infographics</h1>
+        </div>
+
+
+        <div class="body">
+
+            <div class="poster">
+                <img src="img/AquariumSign.png" style="width: 100%;" />
+                <button onclick="window.open('pdfs/AquariumSign.pdf')">
+                Download Poster
+                </button>
+            </div>
+
+            <div class="poster">
+                <img src="img/BurgerReceipt.png" style="width: 100%;">
+                <button onclick="window.open('pdfs/BurgerPrice.pdf')">
+                Download Poster
+                </button>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="footer">
+        <p>&copy; 2018 Samuel Aguilar. All Rights Reserved</p>
+
+    </div>
+
+</body>
+
+<script>
+    AOS.init();
+
+</script>
+
+<script>
+    window.onscroll = function() {
+        myFunction()
+    };
+
+    var navbar = document.getElementById("navigation");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+</script>
+
+</html>
