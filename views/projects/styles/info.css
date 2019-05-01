@@ -193,7 +193,7 @@ and (orientation: portrait) {
 } 
     
 .sticky + .main {
-  padding-top: 100pt;
+  padding-top: 150pt;
 }
 
     
