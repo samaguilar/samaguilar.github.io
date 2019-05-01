@@ -129,22 +129,17 @@ button{
 
 
 #footer {
-    height: 32pt;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    height: 40pt;
+    color: #222222;
+    width: 90%;
+    margin: 0 auto;
     animation: fadein 2s;
-    position: absolute;
-    bottom: 0;
     
 }
 
 #footer p{
-    font-size: 9pt;
+    font-size: 10pt;
     font-weight: 500;
-    margin-left: 5%;
-    position: absolute;
-    bottom: 20pt;
 }
 
 
@@ -154,4 +149,147 @@ button{
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+
+
+
+
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 736px)
+and (orientation: portrait) {
+    
+#navigation {
+    width: 100%;
+	height: 100pt;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: 50pt;
+}
+
+#navigation ul {
+    max-width: 100%;
+    flex-wrap: wrap;
+	
+}
+
+#navigation li {
+    font-size: 20pt;
+    font-weight: 700;
+    display: inline-block;
+    padding-top: 35pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+#navigation li a {
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    color: #222222;
+    
+} 
+    
+.sticky + .main {
+  padding-top: 150pt;
+}
+    
+
+    
+.logo {
+    max-width: 90%;
+    margin-bottom: 16px;
+    margin-top: 50pt;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 50pt;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.logo p{
+    font-size: 32pt;
+    font-weight: 300;    
+}
+
+    
+#main {
+    max-width: 90%;
+    margin: 0 auto;
+    animation: fadein 2s;
+    flex-wrap: wrap;
+}
+    
+img {
+    max-width: 100%; 
+    height: auto; 
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.bio {
+    display: block;
+    width: 100%;
+    padding: 32pt;
+}
+
+.bio h1 {
+    font-size: 72pt;
+    font-weight: 700;
+    margin-bottom: 32pt;
+}
+
+.bio p{
+	font-size: 32pt;
+    font-family: 'Roboto Mono', Menlo;
+    font-weight: 300;
+}
+
+.bio a{
+    color: rgba(100,150,150,1)
+}
+
+
+button{
+	height: 100pt;
+    margin-top: 20pt;
+    width: 100%;
+    font-size: 30pt;
+    font-weight: 400;
+    background-color: transparent;
+    border-width: 2pt;
+    border-color: #222222;
+    transition: 0.3s ease all !important;
+    border-radius: 15pt;
+}
+
+button:hover {
+    background-color: #4facfe;
+    border: 0px solid #4facfe;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease all !important;
+}
+    
+#footer {
+    height: 40pt;
+    color: #222222;
+    width: 100%;
+    animation: fadein 2s;
+    
+}
+
+#footer p{
+    font-size: 20pt;
+    font-weight: 500;
+    margin-left: 10%;
+}
+    
+
+}
+
+
 

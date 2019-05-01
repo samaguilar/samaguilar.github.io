@@ -146,3 +146,237 @@ body {
     to { opacity: 1; }
 }
 
+
+/* Mobile Devices*/
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 736px)
+and (orientation: portrait) {
+    
+#navigation {
+    width: 100%;
+	height: 100pt;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: 50pt;
+}
+
+#navigation ul {
+    max-width: 100%;
+    flex-wrap: wrap;
+	
+}
+
+#navigation li {
+    font-size: 20pt;
+    font-weight: 700;
+    display: inline-block;
+    padding-top: 35pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+#navigation li a {
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    color: #222222;
+    
+} 
+    
+.sticky + .main {
+  padding-top: 150pt;
+}
+
+    
+.main {
+    max-width: 100%;
+    margin: 0pt 10% 0pt 10%;
+    display: flex;
+    flex-direction: column;
+    animation: fadein 2s;
+    margin-bottom: 32pt;
+}
+
+.project {
+    flex-wrap: wrap;
+    max-width:  100%;
+    margin-bottom: 100pt;
+}
+
+.project img{
+	width: 100%;
+    margin: 0pt 0pt 0pt 0pt;
+    border-radius: 15pt;
+}
+
+.description {
+    margin: 30pt 0pt 0pt 0pt;
+    width: 100%;
+}
+
+.description h1{
+	font-size: 52pt;
+    font-weight: 800;
+}
+
+.description p{
+	font-size: 20pt;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+    
+.description button{
+	height: 100pt;
+    margin-top: 50pt;
+    width: 100%;
+    font-size: 30pt;
+    font-weight: 400;
+    background-color: transparent;
+    border-width: 2pt;
+    border-color: #222222;
+    transition: 0.3s ease all !important;
+    border-radius: 15pt;
+}
+
+.description button:hover {
+    background-color: #4facfe;
+    border: 0px solid #4facfe;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease all !important;
+}
+    
+    
+#footer {
+    height: 40pt;
+    color: #222222;
+    width: 100%;
+    animation: fadein 2s;
+    
+}
+
+#footer p{
+    font-size: 20pt;
+    font-weight: 500;
+    margin-left: 10%;
+}
+    
+
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (orientation: portrait){ 
+    
+#navigation {
+    width: 100%;
+	height: 100pt;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: 50pt;
+}
+
+#navigation ul {
+    max-width: 100%;
+    flex-wrap: wrap;
+	
+}
+
+#navigation li {
+    font-size: 20pt;
+    font-weight: 700;
+    display: inline-block;
+    padding-top: 35pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+#navigation li a {
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    color: #222222;
+    
+} 
+    
+.sticky + .main {
+  padding-top: 150pt;
+}
+
+    
+.main {
+    max-width: 100%;
+    margin: 0pt 10% 0pt 10%;
+    display: flex;
+    flex-direction: column;
+    animation: fadein 2s;
+    margin-bottom: 32pt;
+}
+
+.project {
+    flex-wrap: wrap;
+    max-width:  100%;
+    margin-bottom: 100pt;
+}
+
+.project img{
+	width: 100%;
+    margin: 0pt 0pt 0pt 0pt;
+    border-radius: 15pt;
+}
+
+.description {
+    margin: 30pt 0pt 0pt 0pt;
+    width: 100%;
+}
+
+.description h1{
+	font-size: 52pt;
+    font-weight: 800;
+}
+
+.description p{
+	font-size: 26pt;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+    
+.description button{
+	height: 100pt;
+    margin-top: 20pt;
+    width: 100%;
+    font-size: 30pt;
+    font-weight: 400;
+    background-color: transparent;
+    border-width: 2pt;
+    border-color: #222222;
+    transition: 0.3s ease all !important;
+    border-radius: 15pt;
+}
+
+.description button:hover {
+    background-color: #4facfe;
+    border: 0px solid #4facfe;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease all !important;
+}
+    
+    
+#footer {
+    height: 40pt;
+    color: #222222;
+    width: 90%;
+    margin: 0 auto;
+    animation: fadein 2s;
+    
+}
+
+#footer p{
+    font-size: 20pt;
+    font-weight: 500;
+    padding-bottom: 20pt;
+}    
+    
+}

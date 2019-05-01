@@ -372,3 +372,89 @@ hr {
     to { opacity: 1; }
 }
 
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 736px)
+and (orientation: portrait) {
+    
+#navigation {
+    width: 100%;
+	height: 100pt;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: 50pt;
+}
+
+#navigation ul {
+    max-width: 100%;
+    flex-wrap: wrap;
+	
+}
+
+#navigation li {
+    font-size: 20pt;
+    font-weight: 700;
+    display: inline-block;
+    padding-top: 35pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
+
+#navigation li a {
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    color: #222222;
+    
+} 
+    
+.sticky + .main {
+  padding-top: 150pt;
+}
+    
+
+    
+.logo {
+    max-width: 90%;
+    margin-bottom: 16px;
+    margin-top: 50pt;
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 50pt;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.logo p{
+    font-size: 32pt;
+    font-weight: 300;    
+}
+
+    
+.main {
+    max-width: 100%;
+    margin: 0pt 10% 0pt 10%;
+    display: flex;
+    flex-direction: column;
+    animation: fadein 2s;
+    margin-bottom: 32pt;
+}
+    
+#footer {
+    height: 40pt;
+    color: #222222;
+    width: 100%;
+    animation: fadein 2s;
+    
+}
+
+#footer p{
+    font-size: 20pt;
+    font-weight: 500;
+    margin-left: 10%;
+}
+    
+
+}
+
