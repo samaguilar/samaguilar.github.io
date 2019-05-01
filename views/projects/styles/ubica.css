@@ -217,6 +217,19 @@ and (orientation: portrait) {
     margin-bottom: 32pt;
 }
 
+.body h1 {
+    font-size: 32pt;
+    padding-bottom: 32pt;
+    padding-top: 32pt;
+    
+}
+
+.body p{
+	font-size: 20pt;
+    font-family: 'Roboto Mono', Menlo;
+    font-weight: 300;
+}    
+    
 .links button{
 	height: 100pt;
     margin-top: 20pt;

@@ -223,6 +223,19 @@ and (orientation: portrait) {
     animation: fadein 2s;
     margin-bottom: 32pt;
 }
+    
+.body h1 {
+    font-size: 32pt;
+    padding-bottom: 32pt;
+    padding-top: 32pt;
+    
+}
+
+.body p{
+	font-size: 20pt;
+    font-family: 'Roboto Mono', Menlo;
+    font-weight: 300;
+} 
 
 .links button{
 	height: 100pt;

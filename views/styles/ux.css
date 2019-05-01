@@ -221,7 +221,7 @@ and (orientation: portrait) {
 }
 
 .description p{
-	font-size: 20pt;
+	font-size: 32pt;
     font-family: 'Roboto Mono';
     font-weight: 300;
 }
