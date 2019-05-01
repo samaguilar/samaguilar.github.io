@@ -148,10 +148,6 @@ body {
 
 
 
-
-
-
-
 #footer {
     max-width: 62%;
     height: 40px;
@@ -173,104 +169,4 @@ body {
 @keyframes fadein {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 736px)
-and (orientation: portrait) {
-    
-#navigation {
-    width: 100%;
-	height: 100pt;
-    background-color: white;
-    z-index: 1;
-    margin-bottom: 50pt;
-}
-
-#navigation ul {
-    max-width: 100%;
-    flex-wrap: wrap;
-	
-}
-
-#navigation li {
-    font-size: 20pt;
-    font-weight: 700;
-    display: inline-block;
-    padding-top: 35pt;
-    padding-left: 20pt;
-    padding-right: 20pt;
-}
-
-#navigation li a {
-    text-decoration: none;
-    letter-spacing: 1.5px;
-    color: #222222;
-    
-} 
-    
-.sticky + .main {
-  padding-top: 100pt;
-}
-
-    
-.main {
-    max-width: 100%;
-    margin: 0pt 10% 0pt 10%;
-    display: flex;
-    flex-direction: column;
-    animation: fadein 2s;
-    margin-bottom: 32pt;
-}
-    
-.body h1 {
-    font-size: 32pt;
-    padding-bottom: 32pt;
-    padding-top: 32pt;
-    
-}
-
-.body p{
-	font-size: 20pt;
-    font-family: 'Roboto Mono', Menlo;
-    font-weight: 300;
-} 
-
-.links button{
-	height: 100pt;
-    margin-top: 20pt;
-    width: 100%;
-    font-size: 30pt;
-    font-weight: 400;
-    background-color: transparent;
-    border-width: 2pt;
-    border-color: #222222;
-    transition: 0.3s ease all !important;
-    border-radius: 15pt;
-}
-
-.links button:hover {
-    background-color: #4facfe;
-    border: 0px solid #4facfe;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease all !important;
-}
-    
-#footer {
-    height: 40pt;
-    color: #222222;
-    width: 100%;
-    animation: fadein 2s;
-    
-}
-
-#footer p{
-    font-size: 20pt;
-    font-weight: 500;
-    margin-left: 10%;
-}
-    
-
 }

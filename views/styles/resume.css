@@ -152,9 +152,6 @@ button{
 
 
 
-
-
-
 @media only screen 
 and (min-device-width: 320px) 
 and (max-device-width: 736px)
@@ -191,32 +188,12 @@ and (orientation: portrait) {
 } 
     
 .sticky + .main {
-  padding-top: 100pt;
-}
-    
-
-    
-.logo {
-    max-width: 90%;
-    margin-bottom: 16px;
-    margin-top: 50pt;
-    text-align: center;
-}
-
-.logo h1 {
-    font-size: 50pt;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
-.logo p{
-    font-size: 32pt;
-    font-weight: 300;    
+  padding-top: 150pt;
 }
 
     
-#main {
-    max-width: 90%;
+.main {
+    max-width: 84%;
     margin: 0 auto;
     animation: fadein 2s;
     flex-wrap: wrap;
@@ -226,14 +203,15 @@ img {
     max-width: 100%; 
     height: auto; 
     display: block;
-    margin: 0;
-    padding: 0;
+    margin: 0pt 0pt 0pt 0pt;
+    padding: 0pt;
+    margin-bottom: 50pt;
 }
 
 .bio {
     display: block;
     width: 100%;
-    padding: 32pt;
+    padding: 0pt;
 }
 
 .bio h1 {
