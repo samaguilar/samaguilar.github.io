@@ -5,25 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Samuel Aguilar</title>
-    <meta name="description" content="Samuel Aguilar Portfolio" />
-    <!--<meta name="keywords" content="draggable, images, horizontal, layout, flexbox, grid, css, tweenmax, draggabilly, web design" />-->
+    <meta name="description" content="Sam Aguilar Portfolio" />
+    <meta name="keywords" content="portfolio, sam aguilar, sam, product design, ux design, ui design" />
     <meta name="author" content="Samuel Aguilar" />
-    <!--<link rel="stylesheet" href="https://use.typekit.net/ugp0unb.css">-->
+
     <link rel="stylesheet" type="text/css" href="css/base.css" />
     <link rel="stylesheet" type="text/css" href="css/devices.min.css" />
+
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
     <link rel="manifest" href="./icons/site.webmanifest">
     <link rel="mask-icon" href="./icons/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
+
     <script>
         document.documentElement.className = "js";
         var supportsCssVars = function() {
             var e, t = document.createElement("style");
             return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e
         };
-        supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");
+        supportsCssVars() || alert("Dude, something's bust. Check out my portfolio preferably on a modern browser that supports CSS variables.");
 
     </script>
 </head>
@@ -31,285 +32,344 @@
 <body class="loading">
     <main>
         <div class="frame">
-            <div class="frame__title-wrap">
-                <h1 class="frame__title">Samuel Aguilar</h1>
-                <div class="frame__links">
-                    <a href="./views/about.html">About</a>
-                    <a href="./files/Samuel-Aguilar-Resume.pdf">Resume</a>
-                    <a href="mailto:samuel_aguilar@alumni.brown.edu">Contact</a>
+            <div class="title">
+                <h3 class="title__name">Samuel Aguilar</h3>
+                <!--<h4 class="title__sub">2018 <span class="title__sub-works">Selected Works</span></h4>-->
+            </div>
+            <header class="portfolio-header">
+                <!--<h1 class="portfolio-header__title">Grid Layout with Scrollable Content View</h1>-->
+                <div class="portfolio-links">
+                    <a class="portfolio-icon portfolio-icon--prev" href="./about.html" title="Previous Demo">About</a>
+                    <a class="portfolio-icon portfolio-icon--drop" href="./files/Samuel-Aguilar-Resume.pdf" title="Resume">Resume</a>
+                    <a class="github" href="mailto:samuel_aguilar@alumni.brown.edu" title="Contact via Email">Contact</a>
                 </div>
-            </div>
-            <h3 class="frame__subtitle">Copyright 2019 Samuel Aguilar</h3>
-            <div class="frame__indicator"></div>
+            </header>
         </div>
-        <div class="strip-outer">
-            <div class="strip-inner">
-                <div class="draggable"></div>
-                <div class="strip">
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-m">
-                            <div class="img-inner" style="background-image:url('./img/hr_cover.jpg');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Humble Roots</span></a></span>
+        <div class="grid-wrap">
+            <div class="grid">
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/ubica.png" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-cr">
-                            <div class="img-inner" style="background-image:url('./img/banner_green.png');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Critical Review</span></a></span>
+                    <h3 class="grid__item-title">Ubica</h3>
+                    <h4 class="grid__item-number">01</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/farmers-market.jpg" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer-size-iPhone">
-                            <div class="img-inner" style="background-image:url('./img/ubica-calendar.png');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Ubica</span></a></span>
+                    <h3 class="grid__item-title">Humble Roots</h3>
+                    <h4 class="grid__item-number">02</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/banner_green.png" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer-size-album">
-                            <div class="img-inner" style="background-image:url('./img/mlstudio.jpg');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>MLStudio</span></a></span>
+                    <h3 class="grid__item-title">Critical Review</h3>
+                    <h4 class="grid__item-number">03</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/tank.jpg" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-ipad">
-                            <div class="img-inner" style="background-image:url('./img/apple-etch.png');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>iPad KiDS</span></a></span>
+                    <h3 class="grid__item-title">Birch Aquarium Sign</h3>
+                    <h4 class="grid__item-number">04</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/mlstudio.jpg" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-aqua">
-                            <div class="img-inner" style="background-image:url('./img/old/tank.jpg');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Birch Aquarium Sign</span></a></span>
+                    <h3 class="grid__item-title">MLStudio</h3>
+                    <h4 class="grid__item-number">05</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/apple-etch.png" alt="Some image" />
                     </div>
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-burger">
-                            <div class="img-inner" style="background-image:url('./img/burger_parts.png');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>True Cost of a Burger</span></a></span>
+                    <h3 class="grid__item-title">iPad KiDS</h3>
+                    <h4 class="grid__item-number">06</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/BurgerReceipt.png" alt="Some image" />
                     </div>
-                    <!--<div class="strip__item">
-                        <div class="img-outer img-outer--size-l">
-                            <div class="img-inner" style="background-image:url('https://source.unsplash.com/_kdTyfnUFAc/1200x1200');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Tidepool</span></a></span>
-                    </div>-->
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-xl">
-                            <div class="img-inner" style="background-image:url('https://source.unsplash.com/rdtkE1fHi6c/1200x1200');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>Coming Soon</span></a></span>
+                    <h3 class="grid__item-title">True Cost of a Hamburger</h3>
+                    <h4 class="grid__item-number">07</h4>
+                </a>
+                <a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="./img/coming-soon.jpeg" alt="Some image" />
                     </div>
-                    <!--
-                    <div class="strip__item">
-                        <div class="img-outer img-outer--size-s">
-                            <div class="img-inner" style="background-image:url('img/19.jpg');"></div>
-                        </div>
-                        <span class="strip__item-number"><a class="strip__item-link"><span>19</span></a><span class="strip__item-plus"></span></span>
-                    </div>-->
-                </div>
+                    <h3 class="grid__item-title">Coming Soon</h3>
+                    <h4 class="grid__item-number">...</h4>
+                </a>
+                <!--<a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="img/9.jpg" alt="Some image" />
+                    </div>
+                    <h3 class="grid__item-title">Loosing my mind</h3>
+                    <h4 class="grid__item-number">08</h4>
+                </a>-->
+                <!--<a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="img/10.jpg" alt="Some image" />
+                    </div>
+                    <h3 class="grid__item-title">Holding your breath</h3>
+                    <h4 class="grid__item-number">OP2</h4>
+                </a>-->
+                <!--<a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="img/11.jpg" alt="Some image" />
+                    </div>
+                    <h3 class="grid__item-title">Making the best of it</h3>
+                    <h4 class="grid__item-number">EC5</h4>
+                </a>-->
+                <!--<a href="#" class="grid__item">
+                    <div class="grid__item-bg"></div>
+                    <div class="grid__item-wrap">
+                        <img class="grid__item-img" src="img/12.jpg" alt="Some image" />
+                    </div>
+                    <h3 class="grid__item-title">Haunted Blessings</h3>
+                    <h4 class="grid__item-number">2VX</h4>
+                </a>-->
             </div>
-
-            <div class="strip-cover">
-                <!--<h2 class="strip-cover__title">LOL WHAT</h2>
-                <span class="strip-cover__subtitle">2019</span>-->
-            </div>
-        </div>
-
-
-
-
-
-
+        </div><!-- /grid-wrap -->
         <div class="content">
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url(https://source.unsplash.com/IgFLqeqZy-8/4000x3200);"></div>
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/ubica.png" alt="Some image" />
+                    <h2 class="content__item-title"></h2>
                 </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/mlstudio.jpg" style="width: 100%; border-radius: 14px; display: none;" />
-                    <h2 class="content__item-title">Humble Roots</h2>
-                    <p class="content__item-text">
+                <h3 class="content__item-subtitle">Ubica Co-Founder &amp; Designer</h3>
+                <div class="content__item-text">
+                    <p>Ubica is a tool that offers on-campus organizations a better way of promoting their events. Users are able to quickly find events near them, while promoters gather crucial insights on event attendance and engagement.</p>
+                </div>
+                <div class="iphone-container">
+                    <div class="marvel-device iphone8 black">
+                        <div class="top-bar"></div>
+                        <div class="sleep"></div>
+                        <div class="volume"></div>
+                        <div class="camera"></div>
+                        <div class="sensor"></div>
+                        <div class="speaker"></div>
+                        <div class="screen">
+                            <video loop autoplay muted src="./video/UbicaDemo.mp4" autoplay="true" muted style="width: 100%;" />
+                        </div>
+                        <div class="home"></div>
+                        <div class="bottom-bar"></div>
+                    </div>
+                </div>
+
+                <div class="download-container">
+                    <button onclick="window.open('./files/Ubica-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
+                </div>
+
+            </div><!-- /Ubica -->
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/farmers-market.jpg" alt="Some image" />
+                    <h2 class="content__item-title" style="color: white;">Humble Roots</h2>
+                </div>
+                <h3 class="content__item-subtitle">Designer</h3>
+                <div class="content__item-text">
+                    <p>
                         The World's Produce. Delivered.
                         <br />
                         <br />
                         For our Entrepreneurial Process course, my team of about 7 students was tasked with developing and ultimately pitching a unique venture. Our interest and familiarity with local farmers in the state of Providence made it easier to develop some sort of solution that would help these local farmers who struggled to both sell their produce, and market themselves. I coined the name Humble Roots, after hearing that most of these local farms were family owned and relatively small. Our working slogan, ’The Worlds Produce. Delivered’ is a nod to our promise of developing a vast distribution network that connects customers to locally sourced produce and the people behind it.</p>
+                    <div class="download-container">
+                        <button onclick="window.open('./files/Humble-Roots-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
+                    </div>
+                </div>
+            </div><!-- /Humble Roots -->
 
-                    <button onclick="window.open('../files/Humble-Roots-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/banner_green.png" alt="Some image" />
+                    <h2 class="content__item-title" style="color: white;">Critical Review</h2>
                 </div>
-            </article>
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <!--<div class="img-inner img-inner--content" style="background-image: url(./img/banner_green.png);"></div>-->
-                    <video style="width: 90%; height: auto; margin: 0 auto;" src="./video/CRDemo.mp4" controls />
-                </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/cr_logo.png" style="width: 100%; border-radius: 14px;" />
-                    <h2 class="content__item-title">Critical Review</h2>
-                    <p class="content__item-text">
-                        User Experience &amp; Front End Development
-                        <br />
-                        <br />
-                        (February - May 2018)
-                        <br /><br />
-                        Worked with 4 other students to redesign the most widely used course review aggregator on campus. Developed mockups, conducted preliminary research on how users interacted with information on previous website, and designed certain pages using HTML, CSS &amp; JS.</p>
-                    <button onclick="window.open('../files/Critical-Review-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
-                </div>
-            </article>
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <!--<div class="img-inner img-inner--content" style="background-image: url(./img/Opener.jpg);"></div>-->
-                    <div style="width: 100%; margin: auto 0pt; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
-                        <div class="marvel-device iphone8 black">
-                            <div class="top-bar"></div>
-                            <div class="sleep"></div>
-                            <div class="volume"></div>
-                            <div class="camera"></div>
-                            <div class="sensor"></div>
-                            <div class="speaker"></div>
-                            <div class="screen">
-                                <video loop autoplay muted src="../video/UbicaDemo.mp4" autoplay="true" muted style="width: 100%;" />
-                            </div>
-                            <div class="home"></div>
-                            <div class="bottom-bar"></div>
-                        </div>
+                <h3 class="content__item-subtitle">UX Design &amp; Development</h3>
+                <div class="content__item-text">
+                    <p>Worked with 4 other students to redesign the most widely used course review aggregator on campus. Developed mockups, conducted preliminary research on how users interacted with information on previous website, and designed certain pages using HTML, CSS &amp; JS. The redesigned site is now being used by over 6000+ Brown University students.</p>
+                    <div class="download-container">
+                        <button onclick="window.open('./files/Critical-Review-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
                     </div>
                 </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/ubica_cover.jpg" style="width: 100%; border-radius: 14px;" />
-                    <h2 class="content__item-title">Ubica</h2>
-                    <p class="content__item-text">Co-founder &amp; Designer
-                        <br />
-                        May 2018 - Present
-                        <br />
-                        <br />
-                        Ubica is a tool that offers on-campus organizations a better way of promoting their events. Users are able to quickly find events near them, while promoters gather crucial insights on event attendance and engagement.
-                    </p>
-                    <button onclick="window.open('../files/Ubica-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
+            </div><!-- /Critical Review -->
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/tank.jpg" alt="Some image" />
+                    <h2 class="content__item-title" style="color:  white;">Birch Aquarium Sign</h2>
                 </div>
-            </article>
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div style="align-items: center; justify-content: center; margin-right: 70pt;">
-                        <div class="marvel-device macbook">
-                            <div class="top-bar"></div>
-                            <div class="camera"></div>
-                            <div class="screen">
-                                <!-- Content goes here -->
-                                <video loop muted src="./video/MLStudioDemo.mp4" autoplay="true" muted style="height: 100%; width: auto;" />
-                            </div>
-                            <div class="bottom-bar"></div>
-                        </div>
+                <h3 class="content__item-subtitle"></h3>
+                <img src="img/AquariumSign.png" style="width: 100%; border: 2pt solid rgb(240,240,240); border-radius: 10px; height: auto; margin: 32pt auto;" />
+                <div class="content__item-text">
+                    <p>As part of my Animal Behavior Lab, I spent over 8 weeks studying Leopard Sharks at the Birch Aquarium in La Jolla, California. After researching both animal and guest behavior, I found a great opportunity to reevaluate the effectiveness of signage and deliver an improved version of the signs currently on display at the Leopard Shark exhibit.</p>
+                    <div class="download-container">
+                        <button onclick="window.open('./files/Aquarium-Sign-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
                     </div>
-                    <!--<div class="img-inner img-inner--content" style="background-image: url('./img/screenshot.png');"></div>-->
                 </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/mlstudio.jpg" style="width: 100%; border-radius: 14px;" />
-                    <h2 class="content__item-title">MLStudio</h2>
-                    <p class="content__item-text">
-                        A music player. An audio editor. You get the picture. Create unique music visualizations; all inside of MATLAB.
+
+            </div><!-- /Aquarium -->
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/mlstudio.jpg" alt="Some image" />
+                    <h2 class="content__item-title"></h2>
+                </div>
+                <h3 class="content__item-subtitle"></h3>
+                <div class="iphone-container">
+                    <div class="marvel-device macbook">
+                        <div class="top-bar"></div>
+                        <div class="camera"></div>
+                        <div class="screen">
+                            <!-- Content goes here -->
+                            <video loop muted src="./video/MLStudioDemo.mp4" autoplay="true" muted style="height: 100%; width: auto;" />
+                        </div>
+                        <div class="bottom-bar"></div>
+                    </div>
+                </div>
+                <div class="content__item-text">
+                    <p>
+                        A music player. An audio editor. You get the picture.
                         <br />
                         <br />
-                        As our final project for Introduction to Programming, a couple of friends and I decided we build something that wasn't meant to run on MATLAB. The idea? A music visualizer that would take any song, and play it back with a cool visual moving to the frequency of the song. MLStudio offers over 8 unique visualizations including ColorBoom&trade;, which matches the current "mood" of the song to a particular color.
+                        Create unique music visualizations; all inside of MATLAB.
+                        <br />
+                        <br />
+                        As our final project for Introduction to Programming, a couple of friends and I decided we build something that wasn't meant to run on MATLAB. The idea? A music visualizer that would take any song, and play it back with a cool visual moving to the frequency of the song. MLStudio offers over 8 unique visualizations including ColorBoom™, which matches the current "mood" of the song to a particular color.
                     </p>
-                    <button style="display: none;" class="content__item-download">Download PDF</button>
                 </div>
-            </article>
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <!--<div class="img-inner img-inner--content" style="background-image: url(img/5.jpg);"></div>-->
-                    <video style="width: 90%; height: auto; margin: 0 auto;" src="./video/iPadKidsAd.mp4" controls />
+            </div><!-- /MLStudio -->
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/apple-etch.png" alt="Some image" />
+                    <h2 class="content__item-title"></h2>
                 </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/iPad_KiDs_Home.png" style="width: 100%; border-radius: 14px;" />
-                    <h2 class="content__item-title">iPad KiDS</h2>
-                    <p class="content__item-text">
-                        Unlike any other toy.
+                <img src="img/ipad_kids.png" style="width: 32%; height: auto; margin: 32pt auto 0pt auto;" />
+                <h3 class="content__item-subtitle"></h3>
+                <div class="content__item-text">
+                    <p>Unlike any other toy.
                         <br />
                         <br />
                         For our final project in Marketing, our team developed a strategy for launching a new version of the iPad catered specifically for children. I developed simple mockups of the homescreen and music apps, as well as a simple rendering of the device. I also whipped up an advertisement in classic Apple fashion, one that honors those who've made remarkable accomplishments, and helps reminds us that they too were once children.
-
                     </p>
-                    <button class="content__item-download">Coming Soon</button>
                 </div>
-            </article>
-            <article class="content__item aquarium-content">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url(./img/old/tank.jpg);"></div>
-                </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/AquariumSign.png" style="width: 100%; border-radius: 14px;" />
-                    <h2 class="content__item-title">Birch Aquarium Sign</h2>
-                    <p class="content__item-text">As part of my Animal Behavior Lab, I spent over 8 weeks studying Leopard Sharks at the Birch Aquarium in La Jolla, California. After researching both animal and guest behavior, I found a great opportunity to reevaluate the effectiveness of signage and deliver an improved version of the signs currently on display at the Leopard Shark exhibit. <!--Given that the majority of guests are school children, I found that a redesigned sign had to be both informative and engaging.--></p>
-                    <button onclick="window.open('../files/Aquarium-Sign-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
-                </div>
-            </article>
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url('./img/burger_cover.jpeg'); background-position: top;"></div>
-                </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/BurgerReceipt.png" style="width: 77%; border-radius: 5px " />
-                    <h2 class="content__item-title">True Cost of a Burger</h2>
-                    <p class="content__item-text">Styled after your typical diner receipt, this brief infographic showcases a rough estimate of the externalized costs associated with the production of a Quarter Pound Cheeseburger. Energy, Land, and Water prices were estimated based on 2017 figures.</p>
-                    <button onclick="window.open('../files/Burger-Infographic-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
-                </div>
-            </article>
-            <!--<article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url(img/8.jpg);"></div>
-                </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/mlstudio.jpg" style="width: 100%; border-radius: 14px; display: none;" />
-                    <h2 class="content__item-title">Tidepool</h2>
-                    <p class="content__item-text">A forthcoming Apple Music player.</p>
-                    <button class="content__item-download">Coming Soon</button>
-                </div>
-            </article>-->
-            <article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url('https://source.unsplash.com/rdtkE1fHi6c/4000x3200');"></div>
-                </div>
-                <div class="content__item-copy">
-                    <img class="content__item-logo" src="./img/mlstudio.jpg" style="width: 100%; border-radius: 14px; display: none;" />
-                    <h2 class="content__item-title">Coming Soon</h2>
-                    <p class="content__item-text">Stay tuned for more</p>
-                    <button style="display: none;" class="content__item-download">Coming Soon</button>
-                </div>
-            </article>
-            <!--<article class="content__item">
-                <div class="img-outer img-outer--content">
-                    <div class="img-inner img-inner--content" style="background-image: url(img/10.jpg);"></div>
-                </div>
-                <div class="content__item-copy">
-                    <h2 class="content__item-title">Penumbra</h2>
-                    <p class="content__item-text">Virtually no important undertaking is now carried on without it, whether that enterprise be building a cathedral, endowing a university, marketing a moving picture, floating a large bond issue, or electing a president.</p>
-                </div>
-            </article>-->
-            <button class="content__close" aria-label="Close content"><svg width="12" height="26" viewBox="0 0 12 26">
-                    <path d="M5.293 25H5v-.293l-5-5L.707 19 5 23.293V0h1v23.657L10.657 19l.707.707-5.657 5.657-.025-.025-.025.025L5.293 25z" /></svg>
+                <video style="width: 68%; height: auto; margin: 32pt auto; border: 2pt solid rgb(240,240,240); border-radius: 10px;" src="./video/iPadKidsAd.mp4" controls="">
+                </video>
+                <img src="img/iPad_KiDs_Home.png" style="width: 40vw; height: auto; margin: 52pt auto; border: 2pt solid rgb(240,240,240); border-radius: 10px;" />
 
-            </button>
+            </div><!-- /iPad KiDS -->
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="img/BurgerReceipt.png" alt="Some image" />
+                    <h2 class="content__item-title">True Cost of a Burger</h2>
+                </div>
+                <h3 class="content__item-subtitle"></h3>
+                <div class="content__item-text">
+                    <p>Styled after your typical diner receipt, this brief infographic showcases a rough estimate of the externalized costs associated with the production of a Quarter Pound Cheeseburger. Energy, Land, and Water prices were estimated based on 2017 figures.</p>
+                    <div class="download-container">
+                        <button onclick="window.open('./files/Burger-Infographic-Samuel-Aguilar.pdf')" class="content__item-download">Download PDF</button>
+                    </div>
+                </div>
+            </div><!-- /Burger -->
+
+            <div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="./img/coming-soon.jpeg" alt="Some image" />
+                    <h2 class="content__item-title">Coming Soon</h2>
+                </div>
+                <h3 class="content__item-subtitle"></h3>
+                <div class="content__item-text">
+                    <p>Some interesting stuff coming soon.</p>
+                </div>
+            </div><!-- /Coming Soon -->
+
+
+
+
+            <!-- Templates for later -->
+
+            <!--<div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="img/9.jpg" alt="Some image" />
+                    <h2 class="content__item-title">Loosing my mind</h2>
+                </div>
+                <h3 class="content__item-subtitle">"How I learned to cherish life after a trip to hell"</h3>
+                <div class="content__item-text">
+                    <p>When I was in the islands nearly a generation ago, I was acquainted with a young American couple who had among their belongings an attractive little son of the age of seven—attractive but not practicably companionable with me, because he knew no English. He had played from his birth with the little Kanakas on his father’s plantation, and had preferred their language and would learn no other. The family removed to America a month after I arrived in the islands, and straightway the boy began to lose his Kanaka and pick up English. By the time he was twelve he hadn’t a word of Kanaka left; the language had wholly departed from his tongue and from his comprehension. Nine years later, when he was twenty-one, I came upon the family in one of the lake towns of New York, and the mother told me about an adventure which her son had been having. By trade he was now a professional diver. A passenger boat had been caught in a storm on the lake, and had gone down, carrying her people with her. A few days later the young diver descended, with his armor on, and entered the berth-saloon of the boat, and stood at the foot of the companionway, with his hand on the rail, peering through the dim water. Presently something touched him on the shoulder, and he turned and found a dead man swaying and bobbing about him and seemingly inspecting him inquiringly. He was paralyzed with fright.</p>
+                    <p>His entry had disturbed the water, and now he discerned a number of dim corpses making for him and wagging their heads and swaying their bodies like sleepy people trying to dance. His senses forsook him, and in that condition he was drawn to the surface. He was put to bed at home, and was soon very ill. During some days he had seasons of delirium which lasted several hours at a time; and while they lasted he talked Kanaka incessantly and glibly; and Kanaka only. He was still very ill, and he talked to me in that tongue; but I did not understand it, of course. The doctor-books tell us that cases like this are not uncommon. Then the doctors ought to study the cases and find out how to multiply them. Many languages and things get mislaid in a person’s head, and stay mislaid for lack of this remedy.</p>
+                    <p>Several of our passengers belonged in Honolulu, and these were sent ashore; but nobody could go ashore and return. There were people on shore who were booked to go with us to Australia, but we could not receive them; to do it would cost us a quarantine-term in Sydney. They could have escaped the day before, by ship to San Francisco; but the bars had been put up, now, and they might have to wait weeks before any ship could venture to give them a passage any whither. And there were hardships for others. An elderly lady and her son, recreation-seekers from Massachusetts, had wandered westward, further and further from home, always intending to take the return track, but always concluding to go still a little further; and now here they were at anchor before Honolulu positively their last westward-bound indulgence—they had made up their minds to that—but where is the use in making up your mind in this world? It is usually a waste of time to do it. These two would have to stay with us as far as Australia. Then they could go on around the world, or go back the way they had come; the distance and the accommodations and outlay of time would be just the same, whichever of the two routes they might elect to take. Think of it: a projected excursion of five hundred miles gradually enlarged, without any elaborate degree of intention, to a possible twenty-four thousand. However, they were used to extensions by this time, and did not mind this new one much.</p>
+                </div>
+            </div>-->
+            <!-- /content__item -->
+            <!--<div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="img/10.jpg" alt="Some image" />
+                    <h2 class="content__item-title">Holding your breath</h2>
+                </div>
+                <h3 class="content__item-subtitle">"How I learned to cherish life after a trip to hell"</h3>
+                <div class="content__item-text">
+                    <p>When I was in the islands nearly a generation ago, I was acquainted with a young American couple who had among their belongings an attractive little son of the age of seven—attractive but not practicably companionable with me, because he knew no English. He had played from his birth with the little Kanakas on his father’s plantation, and had preferred their language and would learn no other. The family removed to America a month after I arrived in the islands, and straightway the boy began to lose his Kanaka and pick up English. By the time he was twelve he hadn’t a word of Kanaka left; the language had wholly departed from his tongue and from his comprehension. Nine years later, when he was twenty-one, I came upon the family in one of the lake towns of New York, and the mother told me about an adventure which her son had been having. By trade he was now a professional diver. A passenger boat had been caught in a storm on the lake, and had gone down, carrying her people with her. A few days later the young diver descended, with his armor on, and entered the berth-saloon of the boat, and stood at the foot of the companionway, with his hand on the rail, peering through the dim water. Presently something touched him on the shoulder, and he turned and found a dead man swaying and bobbing about him and seemingly inspecting him inquiringly. He was paralyzed with fright.</p>
+                    <p>His entry had disturbed the water, and now he discerned a number of dim corpses making for him and wagging their heads and swaying their bodies like sleepy people trying to dance. His senses forsook him, and in that condition he was drawn to the surface. He was put to bed at home, and was soon very ill. During some days he had seasons of delirium which lasted several hours at a time; and while they lasted he talked Kanaka incessantly and glibly; and Kanaka only. He was still very ill, and he talked to me in that tongue; but I did not understand it, of course. The doctor-books tell us that cases like this are not uncommon. Then the doctors ought to study the cases and find out how to multiply them. Many languages and things get mislaid in a person’s head, and stay mislaid for lack of this remedy.</p>
+                    <p>Several of our passengers belonged in Honolulu, and these were sent ashore; but nobody could go ashore and return. There were people on shore who were booked to go with us to Australia, but we could not receive them; to do it would cost us a quarantine-term in Sydney. They could have escaped the day before, by ship to San Francisco; but the bars had been put up, now, and they might have to wait weeks before any ship could venture to give them a passage any whither. And there were hardships for others. An elderly lady and her son, recreation-seekers from Massachusetts, had wandered westward, further and further from home, always intending to take the return track, but always concluding to go still a little further; and now here they were at anchor before Honolulu positively their last westward-bound indulgence—they had made up their minds to that—but where is the use in making up your mind in this world? It is usually a waste of time to do it. These two would have to stay with us as far as Australia. Then they could go on around the world, or go back the way they had come; the distance and the accommodations and outlay of time would be just the same, whichever of the two routes they might elect to take. Think of it: a projected excursion of five hundred miles gradually enlarged, without any elaborate degree of intention, to a possible twenty-four thousand. However, they were used to extensions by this time, and did not mind this new one much.</p>
+                </div>
+            </div>-->
+            <!-- /content__item -->
+            <!--<div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="img/11.jpg" alt="Some image" />
+                    <h2 class="content__item-title">Making the best of it</h2>
+                </div>
+                <h3 class="content__item-subtitle">"How I learned to cherish life after a trip to hell"</h3>
+                <div class="content__item-text">
+                    <p>When I was in the islands nearly a generation ago, I was acquainted with a young American couple who had among their belongings an attractive little son of the age of seven—attractive but not practicably companionable with me, because he knew no English. He had played from his birth with the little Kanakas on his father’s plantation, and had preferred their language and would learn no other. The family removed to America a month after I arrived in the islands, and straightway the boy began to lose his Kanaka and pick up English. By the time he was twelve he hadn’t a word of Kanaka left; the language had wholly departed from his tongue and from his comprehension. Nine years later, when he was twenty-one, I came upon the family in one of the lake towns of New York, and the mother told me about an adventure which her son had been having. By trade he was now a professional diver. A passenger boat had been caught in a storm on the lake, and had gone down, carrying her people with her. A few days later the young diver descended, with his armor on, and entered the berth-saloon of the boat, and stood at the foot of the companionway, with his hand on the rail, peering through the dim water. Presently something touched him on the shoulder, and he turned and found a dead man swaying and bobbing about him and seemingly inspecting him inquiringly. He was paralyzed with fright.</p>
+                    <p>His entry had disturbed the water, and now he discerned a number of dim corpses making for him and wagging their heads and swaying their bodies like sleepy people trying to dance. His senses forsook him, and in that condition he was drawn to the surface. He was put to bed at home, and was soon very ill. During some days he had seasons of delirium which lasted several hours at a time; and while they lasted he talked Kanaka incessantly and glibly; and Kanaka only. He was still very ill, and he talked to me in that tongue; but I did not understand it, of course. The doctor-books tell us that cases like this are not uncommon. Then the doctors ought to study the cases and find out how to multiply them. Many languages and things get mislaid in a person’s head, and stay mislaid for lack of this remedy.</p>
+                    <p>Several of our passengers belonged in Honolulu, and these were sent ashore; but nobody could go ashore and return. There were people on shore who were booked to go with us to Australia, but we could not receive them; to do it would cost us a quarantine-term in Sydney. They could have escaped the day before, by ship to San Francisco; but the bars had been put up, now, and they might have to wait weeks before any ship could venture to give them a passage any whither. And there were hardships for others. An elderly lady and her son, recreation-seekers from Massachusetts, had wandered westward, further and further from home, always intending to take the return track, but always concluding to go still a little further; and now here they were at anchor before Honolulu positively their last westward-bound indulgence—they had made up their minds to that—but where is the use in making up your mind in this world? It is usually a waste of time to do it. These two would have to stay with us as far as Australia. Then they could go on around the world, or go back the way they had come; the distance and the accommodations and outlay of time would be just the same, whichever of the two routes they might elect to take. Think of it: a projected excursion of five hundred miles gradually enlarged, without any elaborate degree of intention, to a possible twenty-four thousand. However, they were used to extensions by this time, and did not mind this new one much.</p>
+                </div>
+            </div>-->
+            <!-- /content__item -->
+            <!--<div class="content__item">
+                <div class="content__item-intro">
+                    <img class="content__item-img" src="img/12.jpg" alt="Some image" />
+                    <h2 class="content__item-title">Haunted Blessings</h2>
+                </div>
+                <h3 class="content__item-subtitle">"How I learned to cherish life after a trip to hell"</h3>
+                <div class="content__item-text">
+                    <p>When I was in the islands nearly a generation ago, I was acquainted with a young American couple who had among their belongings an attractive little son of the age of seven—attractive but not practicably companionable with me, because he knew no English. He had played from his birth with the little Kanakas on his father’s plantation, and had preferred their language and would learn no other. The family removed to America a month after I arrived in the islands, and straightway the boy began to lose his Kanaka and pick up English. By the time he was twelve he hadn’t a word of Kanaka left; the language had wholly departed from his tongue and from his comprehension. Nine years later, when he was twenty-one, I came upon the family in one of the lake towns of New York, and the mother told me about an adventure which her son had been having. By trade he was now a professional diver. A passenger boat had been caught in a storm on the lake, and had gone down, carrying her people with her. A few days later the young diver descended, with his armor on, and entered the berth-saloon of the boat, and stood at the foot of the companionway, with his hand on the rail, peering through the dim water. Presently something touched him on the shoulder, and he turned and found a dead man swaying and bobbing about him and seemingly inspecting him inquiringly. He was paralyzed with fright.</p>
+                    <p>His entry had disturbed the water, and now he discerned a number of dim corpses making for him and wagging their heads and swaying their bodies like sleepy people trying to dance. His senses forsook him, and in that condition he was drawn to the surface. He was put to bed at home, and was soon very ill. During some days he had seasons of delirium which lasted several hours at a time; and while they lasted he talked Kanaka incessantly and glibly; and Kanaka only. He was still very ill, and he talked to me in that tongue; but I did not understand it, of course. The doctor-books tell us that cases like this are not uncommon. Then the doctors ought to study the cases and find out how to multiply them. Many languages and things get mislaid in a person’s head, and stay mislaid for lack of this remedy.</p>
+                    <p>Several of our passengers belonged in Honolulu, and these were sent ashore; but nobody could go ashore and return. There were people on shore who were booked to go with us to Australia, but we could not receive them; to do it would cost us a quarantine-term in Sydney. They could have escaped the day before, by ship to San Francisco; but the bars had been put up, now, and they might have to wait weeks before any ship could venture to give them a passage any whither. And there were hardships for others. An elderly lady and her son, recreation-seekers from Massachusetts, had wandered westward, further and further from home, always intending to take the return track, but always concluding to go still a little further; and now here they were at anchor before Honolulu positively their last westward-bound indulgence—they had made up their minds to that—but where is the use in making up your mind in this world? It is usually a waste of time to do it. These two would have to stay with us as far as Australia. Then they could go on around the world, or go back the way they had come; the distance and the accommodations and outlay of time would be just the same, whichever of the two routes they might elect to take. Think of it: a projected excursion of five hundred miles gradually enlarged, without any elaborate degree of intention, to a possible twenty-four thousand. However, they were used to extensions by this time, and did not mind this new one much.</p>
+                </div>
+            </div>-->
+            <!-- /content__item -->
+
+
+            <button class="content__close">Close</button>
+            <svg class="content__indicator icon icon--caret">
+                <use xlink:href="#icon-caret"></use>
+            </svg>
         </div>
     </main>
-
-    <div class="cursor">
-        <div class="cursor__inner cursor__inner--circle">
-            <div class="cursor__side cursor__side--left"></div>
-            <div class="cursor__side cursor__side--right"></div>
-        </div>
-    </div>
     <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/charming.min.js"></script>
     <script src="js/TweenMax.min.js"></script>
-    <script src="js/draggabilly.pkgd.min.js"></script>
     <script src="js/demo.js"></script>
-    <script>
-        // Preload all the images in the page
-        imagesLoaded(document.querySelectorAll('.img-inner'), {
-            background: true
-        }, () => document.body.classList.remove('loading'));
-
-    </script>
 </body>
 
 </html>

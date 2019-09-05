@@ -1,22 +1,21 @@
-/**
-*
-* Licensed under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 
-*/
 {
-    const body = document.body;
-
-    const MathUtils = {
-        lineEq: (y2, y1, x2, x1, currentVal) => {
-            // y = mx + b 
-            var m = (y2 - y1) / (x2 - x1), b = y1 - m * x1;
-            return m * currentVal + b;
-        },
-        lerp: (a, b, n) => (1 - n) * a + n * b,
-        getRandomFloat: (min, max) => (Math.random() * (max - min) + min).toFixed(2)
-    };
-    
+    // Calculates the offsetTop or offsetLeft of an element relative to the viewport 
+    // (not counting with any transforms the element might have)
+    const getOffset = (elem, axis) => {
+        let offset = 0;
+        const type = axis === 'top' ? 'offsetTop' : 'offsetLeft';
+        do {
+            if (!isNaN(elem[type])) {
+                offset += elem[type];
+            }
+        } while (elem = elem.offsetParent);
+        return offset;
+    }
+    // Calculates the distance between two points.
+    const distance = (p1, p2) => Math.hypot(p2.x - p1.x, p2.y - p1.y);
+    // Generates a random number.
+    const randNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    // Gets the mouse position. From http://www.quirksmode.org/js/events_properties.html#position
     const getMousePos = (e) => {
         let posx = 0;
         let posy = 0;
@@ -24,423 +23,575 @@
         if (e.pageX || e.pageY) {
             posx = e.pageX;
             posy = e.pageY;
+        } else if (e.clientX || e.clientY) {
+            posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
         }
-        else if (e.clientX || e.clientY) 	{
-            posx = e.clientX + body.scrollLeft + document.documentElement.scrollLeft;
-            posy = e.clientY + body.scrollTop + document.documentElement.scrollTop;
+        return {
+            x: posx,
+            y: posy
         }
-        return { x : posx, y : posy }
     };
+    // Returns the rotation angle of an element.
+    const getAngle = (el) => {
+        const st = window.getComputedStyle(el, null);
+        const tr = st.getPropertyValue('transform');
+        let values = tr.split('(')[1];
+        values = values.split(')')[0];
+        values = values.split(',');
+        return Math.round(Math.asin(values[1]) * (180 / Math.PI));
+    };
+    // Scroll control functions. Taken from https://stackoverflow.com/a/4770179.
+    const keys = {
+        37: 1,
+        38: 1,
+        39: 1,
+        40: 1
+    };
+    const preventDefault = (e) => {
+        e = e || window.event;
+        if (e.preventDefault)
+            e.preventDefault();
+        e.returnValue = false;
+    }
+    const preventDefaultForScrollKeys = (e) => {
+        if (keys[e.keyCode]) {
+            preventDefault(e);
+            return false;
+        }
+    }
+    const disableScroll = () => {
+        if (window.addEventListener) // older FF
+            window.addEventListener('DOMMouseScroll', preventDefault, false);
+        window.onwheel = preventDefault; // modern standard
+        window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+        window.ontouchmove = preventDefault; // mobile
+        document.onkeydown = preventDefaultForScrollKeys;
+    }
+    const enableScroll = () => {
+        if (window.removeEventListener)
+            window.removeEventListener('DOMMouseScroll', preventDefault, false);
+        window.onmousewheel = document.onmousewheel = null;
+        window.onwheel = null;
+        window.ontouchmove = null;
+        document.onkeydown = null;
+    }
 
+    // The GridItem class.
+    class GridItem {
+        constructor(el) {
+            this.DOM = {
+                el: el
+            };
+            // The rectangle element around the image.
+            this.DOM.bg = this.DOM.el.querySelector('.grid__item-bg');
+            // The following DOM elements are elements that will move/tilt when hovering the item.
+            this.DOM.tilt = {};
+            // The image.
+            this.DOM.imgWrap = this.DOM.el.querySelector('.grid__item-wrap');
+            this.DOM.tilt.img = this.DOM.imgWrap.querySelector('img');
+            // The title (vertical text).
+            this.DOM.tilt.title = this.DOM.el.querySelector('.grid__item-title');
+            // The number (horizontal letter/number code).
+            this.DOM.tilt.number = this.DOM.el.querySelector('.grid__item-number');
+            // Split the number into spans using charming.js
+            charming(this.DOM.tilt.number);
+            // And access the spans/letters.
+            this.DOM.numberLetters = this.DOM.tilt.number.querySelectorAll('span');
+            // Configuration for when moving/tilting the elements on hover.
+            this.tiltconfig = {
+                title: {
+                    translation: {
+                        x: [-8, 8],
+                        y: [4, -4]
+                    }
+                },
+                number: {
+                    translation: {
+                        x: [-5, 5],
+                        y: [-10, 10]
+                    }
+                },
+                img: {
+                    translation: {
+                        x: [-15, 15],
+                        y: [-10, 10]
+                    }
+                }
+            };
+            // Get the rotation angle value of the image element.
+            // This will be used to rotate the DOM.bg to the same value when expanding/opening the item.
+            this.angle = getAngle(this.DOM.tilt.img);
+            // Init/Bind events.
+            this.initEvents();
+        }
+        initEvents() {
+            /**
+             * Mouseenter: 
+             * - Scale up the DOM.bg element.
+             * - Animate the number letters.
+             * 
+             * Mousemove: 
+             * - tilt - move both the number, image and title elements. 
+             * 
+             * 
+             * Mouseleave: 
+             * - Scale down the DOM.bg element.
+             * - Animate the number letters.
+             */
+            this.toggleAnimationOnHover = (type) => {
+                // Scale up the bg element.
+                TweenMax.to(this.DOM.bg, 1, {
+                    ease: Expo.easeOut,
+                    scale: type === 'mouseenter' ? 1.15 : 1
+                });
+                // Animate the number letters.
+                this.DOM.numberLetters.forEach((letter, pos) => {
+                    TweenMax.to(letter, .2, {
+                        ease: Quad.easeIn,
+                        delay: pos * .1,
+                        y: type === 'mouseenter' ? '-50%' : '50%',
+                        opacity: 0,
+                        onComplete: () => {
+                            TweenMax.to(letter, type === 'mouseenter' ? 0.6 : 1, {
+                                ease: type === 'mouseenter' ? Expo.easeOut : Elastic.easeOut.config(1, 0.4),
+                                startAt: {
+                                    y: type === 'mouseenter' ? '70%' : '-70%',
+                                    opacity: 0
+                                },
+                                y: '0%',
+                                opacity: 1
+                            });
+                        }
+                    });
+                });
+            };
+            this.mouseenterFn = (ev) => {
+                if (!allowTilt) return;
+                this.toggleAnimationOnHover(ev.type);
+            };
+            this.mousemoveFn = (ev) => requestAnimationFrame(() => {
+                if (!allowTilt) return;
+                this.tilt(ev);
+            });
+            this.mouseleaveFn = (ev) => {
+                if (!allowTilt) return;
+                this.resetTilt();
+                this.toggleAnimationOnHover(ev.type);
+            };
+            this.DOM.el.addEventListener('mouseenter', this.mouseenterFn);
+            this.DOM.el.addEventListener('mousemove', this.mousemoveFn);
+            this.DOM.el.addEventListener('mouseleave', this.mouseleaveFn);
+        }
+        tilt(ev) {
+            // Get mouse position.
+            const mousepos = getMousePos(ev);
+            // Document scrolls.
+            const docScrolls = {
+                left: body.scrollLeft + docEl.scrollLeft,
+                top: body.scrollTop + docEl.scrollTop
+            };
+            const bounds = this.DOM.el.getBoundingClientRect();
+            // Mouse position relative to the main element (this.DOM.el).
+            const relmousepos = {
+                x: mousepos.x - bounds.left - docScrolls.left,
+                y: mousepos.y - bounds.top - docScrolls.top
+            };
+            // Movement settings for the tilt elements.
+            for (let key in this.DOM.tilt) {
+                let t = this.tiltconfig[key].translation;
+                // Animate each of the elements..
+                TweenMax.to(this.DOM.tilt[key], 2, {
+                    ease: Expo.easeOut,
+                    x: (t.x[1] - t.x[0]) / bounds.width * relmousepos.x + t.x[0],
+                    y: (t.y[1] - t.y[0]) / bounds.height * relmousepos.y + t.y[0]
+                });
+            }
+        }
+        resetTilt() {
+            for (let key in this.DOM.tilt) {
+                TweenMax.to(this.DOM.tilt[key], 2, {
+                    ease: Elastic.easeOut.config(1, 0.4),
+                    x: 0,
+                    y: 0
+                });
+            }
+        }
+        /**
+         * Hides the item:
+         * - Scales down and fades out the image and bg elements.
+         * - Moves down and fades out the title and number elements.
+         */
+        hide(withAnimation = true) {
+            this.toggle(withAnimation, false);
+        }
+        /**
+         * Resets.
+         */
+        show(withAnimation = true) {
+            this.toggle(withAnimation);
+        }
+        toggle(withAnimation, show = true) {
+            TweenMax.to(this.DOM.tilt.img, withAnimation ? 0.8 : 0, {
+                ease: Expo.easeInOut,
+                delay: !withAnimation ? 0 : show ? 0.15 : 0,
+                scale: show ? 1 : 0,
+                opacity: show ? 1 : 0,
+            });
+            TweenMax.to(this.DOM.bg, withAnimation ? 0.8 : 0, {
+                ease: Expo.easeInOut,
+                delay: !withAnimation ? 0 : show ? 0 : 0.15,
+                scale: show ? 1 : 0,
+                opacity: show ? 1 : 0
+            });
+            this.toggleTexts(show ? 0.45 : 0, withAnimation, show);
+        }
+        // hides the texts (translate down and fade out).
+        hideTexts(delay = 0, withAnimation = true) {
+            this.toggleTexts(delay, withAnimation, false);
+        }
+        // shows the texts (reset transforms and fade in).
+        showTexts(delay = 0, withAnimation = true) {
+            this.toggleTexts(delay, withAnimation);
+        }
+        toggleTexts(delay, withAnimation, show = true) {
+            TweenMax.to([this.DOM.tilt.title, this.DOM.tilt.number], !withAnimation ? 0 : show ? 1 : 0.5, {
+                ease: show ? Expo.easeOut : Quart.easeIn,
+                delay: !withAnimation ? 0 : delay,
+                y: show ? 0 : 20,
+                opacity: show ? 1 : 0
+            });
+        }
+    }
+
+    // The Content class. Represents one content item per grid item.
+    class Content {
+        constructor(el) {
+            this.DOM = {
+                el: el
+            };
+            // The content elements: image, title, subtitle and text.
+            this.DOM.img = this.DOM.el.querySelector('.content__item-img');
+            this.DOM.title = this.DOM.el.querySelector('.content__item-title');
+            this.DOM.subtitle = this.DOM.el.querySelector('.content__item-subtitle');
+            this.DOM.text = this.DOM.el.querySelector('.content__item-text');
+            // Split the title into spans using charming.js
+            charming(this.DOM.title);
+            // And access the spans/letters.
+            this.DOM.titleLetters = this.DOM.title.querySelectorAll('span');
+            this.titleLettersTotal = this.DOM.titleLetters.length;
+        }
+        /**
+         * Show/Hide the content elements (title letters, the subtitle and the text).
+         */
+        show(delay = 0, withAnimation = true) {
+            this.toggle(delay, withAnimation);
+        }
+        hide(delay = 0, withAnimation = true) {
+            this.toggle(delay, withAnimation, false);
+        }
+        toggle(delay, withAnimation, show = true) {
+            setTimeout(() => {
+
+                this.DOM.titleLetters.forEach((letter, pos) => {
+                    TweenMax.to(letter, !withAnimation ? 0 : show ? .6 : .3, {
+                        ease: show ? Back.easeOut : Quart.easeIn,
+                        delay: !withAnimation ? 0 : show ? pos * .05 : (this.titleLettersTotal - pos - 1) * .04,
+                        startAt: show ? {
+                            y: '50%',
+                            opacity: 0
+                        } : null,
+                        y: show ? '0%' : '50%',
+                        opacity: show ? 1 : 0
+                    });
+                });
+                this.DOM.subtitle.style.opacity = show ? 1 : 0;
+                this.DOM.text.style.opacity = show ? 1 : 0;
+
+            }, withAnimation ? delay * 1000 : 0);
+        }
+    }
+
+    // The Grid class.
+    class Grid {
+        constructor(el) {
+            this.DOM = {
+                el: el
+            };
+            // The grid wrap.
+            this.DOM.gridWrap = this.DOM.el.parentNode;
+            // The grid items.
+            this.items = [];
+            Array.from(this.DOM.el.querySelectorAll('.grid__item')).forEach(itemEl => this.items.push(new GridItem(itemEl)));
+            // The total number of items.
+            this.itemsTotal = this.items.length;
+            // The content items.
+            this.contents = [];
+            Array.from(document.querySelectorAll('.content > .content__item')).forEach(contentEl => this.contents.push(new Content(contentEl)));
+            // Back control and scroll indicator (elements shown when the item´s content is open).
+            this.DOM.closeCtrl = document.querySelector('.content__close');
+            this.DOM.scrollIndicator = document.querySelector('.content__indicator');
+            // The open grid item.
+            this.current = -1;
+            // Init/Bind events.
+            this.initEvents();
+        }
+        initEvents() {
+            // Clicking a grid item hides all the other grid items (ordered by proximity to the clicked one) 
+            // and expands/opens the clicked one.
+            for (let item of this.items) {
+                item.DOM.el.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    this.openItem(item);
+                });
+            }
+            // Close item.
+            this.DOM.closeCtrl.addEventListener('click', () => this.closeItem());
+            // (Incomplete! For now: if theres an open item, then show back the grid.
+            this.resizeFn = () => {
+                if (this.current === -1 || winsize.width === window.innerWidth) return;
+                this.closeItem(false);
+            };
+            window.addEventListener('resize', this.resizeFn);
+        }
+        getSizePosition(el, scrolls = true) {
+            const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+            const scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+            return {
+                width: el.offsetWidth,
+                height: el.offsetHeight,
+                left: scrolls ? getOffset(el, 'left') - scrollLeft : getOffset(el, 'left'),
+                top: scrolls ? getOffset(el, 'top') - scrollTop : getOffset(el, 'top')
+            };
+        }
+        openItem(item) {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+            // Get the current scroll position.
+            this.scrollPos = window.scrollY;
+            // Disable page scrolling.
+            disableScroll();
+            // Disable tilt.
+            allowTilt = false;
+            // Set the current value (index of the clicked item).
+            this.current = this.items.indexOf(item);
+            // Hide all the grid items except the one we want to open.
+            this.hideAllItems(item);
+            // Also hide the item texts.
+            item.hideTexts();
+            // Set the item´s z-index to a high value so it overlaps any other grid item.
+            item.DOM.el.style.zIndex = 1000;
+            // Get the "grid__item-bg" width and height and set it explicitly, 
+            // also set its top and left respective to the page.
+            const itemDim = this.getSizePosition(item.DOM.el);
+            item.DOM.bg.style.width = `${itemDim.width}px`;
+            item.DOM.bg.style.height = `${itemDim.height}px`;
+            item.DOM.bg.style.left = `${itemDim.left}px`;
+            item.DOM.bg.style.top = `${itemDim.top}px`;
+            // Set it to position fixed.
+            item.DOM.bg.style.position = 'fixed';
+            // Calculate the viewport diagonal. We will need to take this in consideration when scaling up the item´s bg element.
+            const d = Math.hypot(winsize.width, winsize.height);
+            // Scale up the item´s bg element.
+            TweenMax.to(item.DOM.bg, 1.2, {
+                ease: Expo.easeInOut,
+                delay: 0.4,
+                x: winsize.width / 2 - (itemDim.left + itemDim.width / 2),
+                y: winsize.height / 2 - (itemDim.top + itemDim.height / 2),
+                scaleX: d / itemDim.width,
+                scaleY: d / itemDim.height,
+                rotation: -1 * item.angle * 2
+            });
+            // Get the content element respective to this grid item.
+            const contentEl = this.contents[this.current];
+            // Set it to current.
+            contentEl.DOM.el.classList.add('content__item--current');
+            // Calculate the item´s image and content´s image sizes and positions. 
+            // We need this so we can scale up and translate the item´s image to the same size and position of the content´s image.
+            const imgDim = this.getSizePosition(item.DOM.imgWrap);
+            const contentImgDim = this.getSizePosition(contentEl.DOM.img, false);
+            // Show the back control and scroll indicator and all the item´s content elements (1 second delay).
+            this.showContentElems(contentEl, 1);
+            // Animate the item´s image.
+            TweenMax.to(item.DOM.tilt.img, 1.2, {
+                ease: Expo.easeInOut,
+                delay: 0.55,
+                scaleX: contentImgDim.width / imgDim.width,
+                scaleY: contentImgDim.height / imgDim.height,
+                x: (contentImgDim.left + contentImgDim.width / 2) - (imgDim.left + imgDim.width / 2),
+                y: (contentImgDim.top + contentImgDim.height / 2) - (imgDim.top + imgDim.height / 2),
+                rotation: 0,
+                onComplete: () => {
+                    // Hide the item´s image and show the content´s image. Should both be overlapping.
+                    item.DOM.tilt.img.style.opacity = 0;
+                    contentEl.DOM.img.style.visibility = 'visible';
+                    // Set the main content wrapper to absolute so it´s position at the top.
+                    contentEl.DOM.el.parentNode.style.position = 'absolute';
+                    // Hiding the grid scroll.
+                    this.DOM.gridWrap.classList.add('grid-wrap--hidden');
+                    // Scroll up the page.
+                    window.scrollTo(0, 0);
+                    // Enable page scrolling.
+                    enableScroll();
+                    this.isAnimating = false;
+                }
+            });
+        }
+        closeItem(withAnimation = true) {
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+            // Get the content element respective to this grid item.
+            const contentEl = this.contents[this.current];
+            // Scroll to the previous scroll position before opening the item.
+            window.scrollTo(0, this.scrollPos);
+            contentEl.DOM.el.parentNode.style.position = 'fixed';
+            // Disable page scrolling.
+            disableScroll();
+            // Showing the grid scroll.
+            this.DOM.gridWrap.classList.remove('grid-wrap--hidden');
+            // The item that is open.
+            const item = this.items[this.current];
+            // Hide the back control and scroll indicator and all the item´s content elements.
+            this.hideContentElems(contentEl, 0, withAnimation);
+            // Set the grid´s image back to visible and hide the content´s one.
+            item.DOM.tilt.img.style.opacity = 1;
+            contentEl.DOM.img.style.visibility = 'hidden';
+            // Animate the grid´s image back to the grid position.
+            TweenMax.to(item.DOM.tilt.img, withAnimation ? 1.2 : 0, {
+                ease: Expo.easeInOut,
+                scaleX: 1,
+                scaleY: 1,
+                x: 0,
+                y: 0,
+                rotation: item.angle * 2
+            });
+            // And also the bg element.
+            TweenMax.to(item.DOM.bg, withAnimation ? 1.2 : 0, {
+                ease: Expo.easeInOut,
+                delay: 0.15,
+                x: 0,
+                y: 0,
+                scaleX: 1,
+                scaleY: 1,
+                rotation: 0,
+                onComplete: () => {
+                    contentEl.DOM.el.classList.remove('content__item--current');
+                    item.DOM.bg.style.position = 'absolute';
+                    item.DOM.bg.style.left = '0px';
+                    item.DOM.bg.style.top = '0px';
+                    this.current = -1;
+                    allowTilt = true;
+                    item.DOM.el.style.zIndex = 0;
+                    enableScroll();
+                    this.isAnimating = false;
+                }
+            });
+            // Show all the grid items except the one we want to close.
+            this.showAllItems(item, withAnimation);
+            // Also show the item texts. (1s delay)
+            item.showTexts(1, withAnimation);
+        }
+        /**
+         * Toggle the content elements.
+         */
+        showContentElems(contentEl, delay = 0, withAnimation = true) {
+            this.toggleContentElems(contentEl, delay, withAnimation);
+        }
+        hideContentElems(contentEl, delay = 0, withAnimation = true) {
+            this.toggleContentElems(contentEl, delay, withAnimation, false);
+        }
+        toggleContentElems(contentEl, delay, withAnimation, show = true) {
+            // toggle the back control and scroll indicator.
+            TweenMax.to([this.DOM.closeCtrl, this.DOM.scrollIndicator], withAnimation ? 0.8 : 0, {
+                ease: show ? Expo.easeOut : Expo.easeIn,
+                delay: withAnimation ? delay : 0,
+                startAt: show ? {
+                    y: 60
+                } : null,
+                y: show ? 0 : 60,
+                opacity: show ? 1 : 0
+            });
+            if (show) {
+                contentEl.show(delay, withAnimation);
+            } else {
+                contentEl.hide(delay, withAnimation);
+            }
+        }
+        // Based on https://stackoverflow.com/q/25481717
+        sortByDist(refPoint, itemsArray) {
+            let distancePairs = [];
+            let output = [];
+
+            for (let i in itemsArray) {
+                const rect = itemsArray[i].DOM.el.getBoundingClientRect();
+                distancePairs.push([distance(refPoint, {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2
+                }), i]);
+            }
+
+            distancePairs.sort((a, b) => a[0] - b[0]);
+
+            for (let p in distancePairs) {
+                const pair = distancePairs[p];
+                output.push(itemsArray[pair[1]]);
+            }
+
+            return output;
+        }
+        /**
+         * Shows/Hides all the grid items except the "exclude" item.
+         * The items will be sorted based on the distance to the exclude item.
+         */
+        showAllItems(exclude, withAnimation = true) {
+            this.toggleAllItems(exclude, withAnimation);
+        }
+        hideAllItems(exclude, withAnimation = true) {
+            this.toggleAllItems(exclude, withAnimation, false);
+        }
+        toggleAllItems(exclude, withAnimation, show = true) {
+            if (!withAnimation) {
+                this.items.filter(item => item != exclude).forEach((item, pos) => item[show ? 'show' : 'hide'](withAnimation));
+            } else {
+                const refrect = exclude.DOM.el.getBoundingClientRect();
+                const refPoint = {
+                    x: refrect.left + refrect.width / 2,
+                    y: refrect.top + refrect.height / 2
+                };
+                this.sortByDist(refPoint, this.items.filter(item => item != exclude))
+                    .forEach((item, pos) => setTimeout(() => item[show ? 'show' : 'hide'](), show ? 300 + pos * 70 : pos * 70));
+            }
+        }
+    }
+
+    // Controls whether the item will have the "tilt" movement on hover (mousemove) or not.
+    let allowTilt = true;
+
+    // Caching some stuff..
+    const body = document.body;
+    const docEl = document.documentElement;
+
+    // Window sizes.
     let winsize;
-    const calcWinsize = () => winsize = {width: window.innerWidth, height: window.innerHeight};
+    const calcWinsize = () => winsize = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
     calcWinsize();
     window.addEventListener('resize', calcWinsize);
 
-    let mousepos = {x: winsize.width/2, y: winsize.height/2};
-    window.addEventListener('mousemove', ev => mousepos = getMousePos(ev));
+    // Initialize the Grid.
+    const grid = new Grid(document.querySelector('.grid'));
 
-    // Custom cursor
-    class Cursor {
-        constructor(el) {
-            this.DOM = {el: el};
-            this.DOM.circle = this.DOM.el.querySelector('.cursor__inner--circle');
-            this.DOM.arrows = {
-                right: this.DOM.el.querySelector('.cursor__side--right'),
-                left: this.DOM.el.querySelector('.cursor__side--left')
-            };
-            this.bounds = this.DOM.circle.getBoundingClientRect();
-            this.lastMousePos = {x:0, y:0};
-            this.scale = 1;
-            this.lastScale = 1;
-            requestAnimationFrame(() => this.render());
-        }
-        render() {
-            this.lastMousePos.x = MathUtils.lerp(this.lastMousePos.x, mousepos.x - this.bounds.width/2, 0.2);
-            this.lastMousePos.y = MathUtils.lerp(this.lastMousePos.y, mousepos.y - this.bounds.height/2, 0.2);
-            this.lastScale = MathUtils.lerp(this.lastScale, this.scale, 0.15);
-            this.DOM.circle.style.transform = `translateX(${(this.lastMousePos.x)}px) translateY(${this.lastMousePos.y}px) scale(${this.lastScale})`;
-            requestAnimationFrame(() => this.render());
-        }
-        enter() {
-            this.scale = 1.9;
-        }
-        leave() {
-            this.scale = 1;
-        }
-        click() {
-            this.lastScale = .4;
-        }
-        showArrows() {
-            TweenMax.to(Object.values(this.DOM.arrows), 1, {
-                ease: Expo.easeOut,
-                startAt: {x: i => i ? 10 : -10 },
-                opacity: 1,
-                x: 0
-            });
-        }
-        hideArrows() {
-            TweenMax.to(Object.values(this.DOM.arrows), 1, {
-                ease: Expo.easeOut,
-                x: i => i ? 10 : -10,
-                opacity: 0
-            });
-        }
-    }
-
-    // Strip Item
-    class StripItem {
-        constructor(el) {
-            this.DOM = {el: el};
-            this.DOM.image = this.DOM.el.querySelector('.img-inner');
-            this.DOM.number = this.DOM.el.querySelector('.strip__item-link');
-
-            this.initEvents();
-        }
-        initEvents() {
-            // Hovering the number makes it slide out/in
-            this.DOM.number.addEventListener('mouseenter', () => {
-                const inner = this.DOM.number.querySelector('span');
-                new TimelineMax()
-                .to(inner, 0.2, {
-                    ease: Quad.easeOut,
-                    y: '-100%',
-                    opacity: 0
-                }, 0)
-                .to(inner, 0.5, {
-                    ease: Expo.easeOut,
-                    startAt: {y: '100%', opacity: 0, scale: 1.3},
-                    y: '0%',
-                    opacity: 1
-                }, 0.2)
-            });
-            
-            this.DOM.number.addEventListener('mouseleave', () => {
-                const inner = this.DOM.number.querySelector('span');
-                TweenMax.killTweensOf(inner);
-                TweenMax.set(inner, {
-                    scale: 1,
-                    y: '0%',
-                    opacity: 1
-                });
-            });
-        }
-    }
-
-    // Content Item
-    class ContentItem {
-        constructor(el) {
-            this.DOM = {el: el};
-            this.DOM.image = this.DOM.el.querySelector('.img-outer');
-            this.DOM.title = this.DOM.el.querySelector('.content__item-title');
-            this.DOM.text = this.DOM.el.querySelector('.content__item-text');
-            this.DOM.download = this.DOM.el.querySelector('.content__item-download');
-            this.DOM.logo = this.DOM.el.querySelector('.content__item-logo');
-           
-        }
-    }
-
-    // Images strip
-    class Strip {
-        constructor(el) {
-            this.DOM = {el: el};
-            this.DOM.strip = this.DOM.el.querySelector('.strip');
-            this.items = [];
-            [...this.DOM.strip.querySelectorAll('.strip__item')].forEach(item => this.items.push(new StripItem(item)));
-            // The draggable container
-            this.DOM.draggable = this.DOM.el.querySelector('.draggable');
-            // the extra indicator element (scales down when we start dragging)
-            this.DOM.indicator = document.querySelector('.frame__indicator');
-            // the cover (name + year elements) that appear when we start to drag
-            this.DOM.cover = this.DOM.el.querySelector('.strip-cover');
-            // The width of the draggable container (also the strip container)
-            this.draggableWidth = this.DOM.draggable.offsetWidth;
-            // The total amount that we can drag the draggable container, so that both the first and last image stay next to the viewport boundary (left and right respectively)
-            this.maxDrag = this.draggableWidth < winsize.width ? 0 : this.draggableWidth - winsize.width;
-            // The current amount (in pixels) that was dragged
-            this.dragPosition = 0;
-            // Initialize the Draggabilly
-            this.draggie = new Draggabilly(this.DOM.draggable, { axis: 'x' });
-
-            this.init();
-            this.initEvents();
-        }
-        init() {
-            this.renderedStyles = {
-                position: {previous: 0, current: this.dragPosition},
-                scale: {previous: 1, current: 1},
-                imgScale: {previous: 1, current: 1},
-                opacity: {previous: 1, current: 1},
-                coverScale: {previous: 0.75, current: 0.75},
-                coverOpacity: {previous: 0, current: 0},
-                indicatorScale: {previous: 1, current: 1},
-            };
-
-            this.render = () => {
-                this.renderId = undefined;
-                
-                for (const key in this.renderedStyles ) {
-                    this.renderedStyles[key].previous = MathUtils.lerp(this.renderedStyles[key].previous, this.renderedStyles[key].current, 0.1);
-                }
-                
-                TweenMax.set(this.DOM.strip, {x: this.renderedStyles.position.previous});
-                for (const item of this.items) {
-                    TweenMax.set(item.DOM.el, {scale: this.renderedStyles.scale.previous, opacity: this.renderedStyles.opacity.previous});
-                    TweenMax.set(item.DOM.image, {scale: this.renderedStyles.imgScale.previous});
-                }
-                TweenMax.set(this.DOM.cover, {scale: this.renderedStyles.coverScale.previous, opacity: this.renderedStyles.coverOpacity.previous});
-                TweenMax.set(this.DOM.indicator, {scaleX: this.renderedStyles.indicatorScale.previous});
-
-                if ( !this.renderId ) {
-                    this.renderId = requestAnimationFrame(() => this.render());  
-                }
-            };
-            this.renderId = requestAnimationFrame(() => this.render());
-        }
-        initEvents() {
-            this.onDragStart = () => {
-                this.renderedStyles.scale.current = 0.8;
-                this.renderedStyles.imgScale.current = 1.6;
-                this.renderedStyles.opacity.current = 0.3;
-                this.renderedStyles.coverScale.current = 1;
-                this.renderedStyles.coverOpacity.current = 1;
-                this.renderedStyles.indicatorScale.current = 0;
-
-                cursor.scale = 1.5;
-                cursor.showArrows();
-            };
-
-            this.onDragMove = (event, pointer, moveVector) => {
-                // The possible range for the drag is draggie.position.x = [-maxDrag,0 ]
-                if ( this.draggie.position.x >= 0 ) {
-                    // the max we will be able to drag is winsize.width/2
-                    this.dragPosition = MathUtils.lineEq(0.5*winsize.width,0, winsize.width, 0, this.draggie.position.x);
-                }
-                else if ( this.draggie.position.x < -1*this.maxDrag ) {
-                    // the max we will be able to drag is winsize.width/2
-                    this.dragPosition = MathUtils.lineEq(0.5*winsize.width,0, this.maxDrag+winsize.width, this.maxDrag, this.draggie.position.x);
-                }
-                else {
-                    this.dragPosition = this.draggie.position.x;
-                }
-                this.renderedStyles.position.current = this.dragPosition;
-
-                mousepos = getMousePos(event);
-            };
-
-            this.onDragEnd = () => {
-                // reset draggable if out of bounds.
-                if ( this.draggie.position.x > 0 ) {
-                    this.dragPosition = 0;
-                    this.draggie.setPosition(this.dragPosition, this.draggie.position.y);
-                }
-                else if ( this.draggie.position.x < -1*this.maxDrag ) {
-                    this.dragPosition = -1*this.maxDrag;
-                    this.draggie.setPosition(this.dragPosition, this.draggie.position.y);
-                }
-                this.renderedStyles.position.current = this.dragPosition;
-                this.renderedStyles.scale.current = 1;
-                this.renderedStyles.imgScale.current = 1;
-                this.renderedStyles.opacity.current = 1;
-                this.renderedStyles.coverScale.current = 0.75;
-                this.renderedStyles.coverOpacity.current = 0;
-                this.renderedStyles.indicatorScale.current = 1;
-
-                cursor.scale = 1;
-                cursor.hideArrows();
-            };
-
-            this.draggie.on('pointerDown', this.onDragStart);
-            this.draggie.on('dragMove', this.onDragMove);
-            this.draggie.on('pointerUp', this.onDragEnd);
-
-            for (const item of this.items) {
-                item.DOM.number.addEventListener('click', (ev) => {
-                    ev.preventDefault();
-                    this.showItem(item);
-                });
-            }
-
-            window.addEventListener('resize', () => {
-                this.maxDrag = this.draggableWidth < winsize.width ? 0 : this.draggableWidth - winsize.width;
-                if ( Math.abs(this.dragPosition) + winsize.width > this.draggableWidth ) {
-                    const diff = Math.abs(this.dragPosition) + winsize.width - this.draggableWidth;
-                    // reset dragPosition
-                    this.dragPosition = this.dragPosition+diff;
-                    this.draggie.setPosition(this.dragPosition, this.draggie.position.y);
-                }
-            });
-        }
-        showItem(item) {
-            if ( this.isAnimating ) {
-                return false;
-            }
-            
-            if ( this.renderId ) {
-                window.cancelAnimationFrame(this.renderId);
-                this.renderId = undefined;
-            }
-
-            this.isAnimating = true;
-
-            this.current = this.items.indexOf(item);
-            const contentItem = contentItems[this.current];
-            contentItem.DOM.el.classList.add('content__item--current');
-            
-            // Fix for mobile (make sure the cover is not visible when clicking the numbers)
-            TweenMax.set(this.DOM.cover, {scale: 0, opacity: 0});
-
-            this.contentToggleTimeline = new TimelineMax({
-                onComplete: () => this.isAnimating = false
-            })
-            .set([contentItem.DOM.image, contentItem.DOM.title, contentItem.DOM.text, contentItem.DOM.download, contentItem.DOM.logo, closeContentCtrl], {
-                opacity: 0
-            }, 0)
-            .to(this.items.map(item => item.DOM.el), 0.8, {
-                ease: Cubic.easeOut,
-                scale: 0.8,
-                opacity: 0.4
-            }, 0)
-            .to(this.items.map(item => item.DOM.image), 0.8, {
-                ease: Cubic.easeOut,
-                scale: 1.6
-            }, 0)
-            .to(this.DOM.indicator, 0.8, {
-                ease: Cubic.easeOut,
-                scaleX: 0
-            }, 0);
-
-            for (const item of this.items) {
-                this.contentToggleTimeline.to(item.DOM.el, 1, {
-                    ease: Expo.easeInOut,
-                    y: winsize.height*-1
-                }, MathUtils.getRandomFloat(0.2,0.4));
-            }
-
-            this.contentToggleTimeline
-            .to(contentItem.DOM.image, 1, {
-                ease: Expo.easeInOut,
-                startAt: {y: winsize.height*1.3, opacity: 1},
-                y: 0
-            }, 0.6)
-            .to(contentItem.DOM.logo, 0.8, {
-                ease: Quint.easeOut,
-                startAt: {y: 100},
-                y: 0,
-                opacity: 1
-            }, 1)
-            .to(contentItem.DOM.title, 0.8, {
-                ease: Quint.easeOut,
-                startAt: {y: 100},
-                y: 0,
-                opacity: 1
-            }, 1)
-            .to(contentItem.DOM.text, 0.8, {
-                ease: Quint.easeOut,
-                startAt: {y: 200},
-                y: 0,
-                opacity: 1
-            }, 1)
-            .to(contentItem.DOM.download, 0.8, {
-                ease: Quint.easeOut,
-                startAt: {y: 100},
-                y: 0,
-                opacity: 1
-            }, 1)
-            .to(closeContentCtrl, 0.8, {
-                ease: Quint.easeOut,
-                startAt: {y: 50},
-                y: 0,
-                opacity: 1
-            }, 1);
-        }
-        closeContent() {
-            if ( this.isAnimating ) {
-                return false;
-            }
-            this.isAnimating = true;
-            
-            const contentItem = contentItems[this.current];
-            this.contentToggleTimeline = new TimelineMax({
-                onComplete: () => {
-                    contentItem.DOM.el.classList.remove('content__item--current');
-                    this.isAnimating = false
-                    this.renderId = requestAnimationFrame(() => this.render());
-                }
-            })
-            .set(this.items.map(item => item.DOM.el), {
-                scale: 1,
-                opacity: 1
-            }, 0)
-            .set(this.items.map(item => item.DOM.image), {
-                scale: 1
-            }, 0)
-            .to(contentItem.DOM.download, 0.8, {
-                ease: Quint.easeIn,
-                y: 100,
-                opacity: 0
-            }, 0)
-            .to(contentItem.DOM.text, 0.8, {
-                ease: Quint.easeIn,
-                y: 200,
-                opacity: 0
-            }, 0)
-            .to(contentItem.DOM.title, 0.8, {
-                ease: Quint.easeIn,
-                y: 100,
-                opacity: 0
-            }, 0)
-            .to(contentItem.DOM.logo, 0.8, {
-                ease: Quint.easeIn,
-                y: 100,
-                opacity: 0
-            }, 0)
-            .to(closeContentCtrl, 0.8, {
-                ease: Quint.easeOut,
-                y: 50,
-                opacity: 0
-            }, 0.2)
-            .to(contentItem.DOM.image, 1, {
-                ease: Expo.easeInOut,
-                y: winsize.height*1.3, 
-                opacity: 1
-            }, 0.2);
-
-            for (const item of this.items) {
-                this.contentToggleTimeline.to(item.DOM.el, MathUtils.getRandomFloat(0.6,0.9), {
-                    ease: Expo.easeInOut,
-                    y: 0
-                }, MathUtils.getRandomFloat(0.4,0.6));
-            }
-
-            this.contentToggleTimeline
-            .to(this.DOM.indicator, 1.2, {
-                ease: Expo.easeOut,
-                scaleX: 1
-            }, 0.5);
-        }
-    }
-
-    // The images strip
-    const strip = new Strip(document.querySelector('.strip-outer'));
-    
-    // Custom mouse cursor
-    const cursor = new Cursor(document.querySelector('.cursor'));
-
-    // The content elements
-    const contentItems = [];
-    [...document.querySelectorAll('.content__item')].forEach(item => contentItems.push(new ContentItem(item)));
-    
-    // The close content ctrl
-    const closeContentCtrl = document.querySelector('.content__close');
-    // On click, close the content view
-    closeContentCtrl.addEventListener('click', () => {
-        strip.closeContent();
-    });
-
-    // Activate the enter/leave/click methods of the custom cursor when hovering in/out on every <a> (and the close content ctrl)
-    [...document.querySelectorAll('a'), closeContentCtrl].forEach((link) => {
-        link.addEventListener('mouseenter', () => cursor.enter());
-        link.addEventListener('mouseleave', () => cursor.leave());
+    // Preload images.
+    imagesLoaded(document.querySelectorAll('.grid__item-img'), () => {
+        body.classList.remove('loading');
+        var msnry = new Masonry(grid.DOM.el, {
+            // options
+            itemSelector: '.grid__item',
+            columnWidth: 260,
+            gutter: 100,
+            fitWidth: true
+        });
     });
 }
